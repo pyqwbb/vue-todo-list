@@ -15,7 +15,12 @@
       />
       <label :for="item.id" class="todo__checkbox-label"></label>
       <span class="todo__item-text">{{ item.msg }}</span>
-      <span class="material-symbols-outlined todo__delete-icon"> delete </span>
+      <span
+        class="material-symbols-outlined todo__delete-icon"
+        @click="deleteTodo(item.id)"
+      >
+        delete
+      </span>
     </div>
     <!-- 할 일 목록이 없을 때 -->
     <div v-if="computedTodo.length === 0" class="todo__item--no">
@@ -34,10 +39,13 @@ export default {
       },
     },
   },
-  emits: ['update-todo'],
+  emits: ['update-todo', 'delete-todo'],
   methods: {
     updateTodo(id) {
       this.$emit('update-todo', id);
+    },
+    deleteTodo(id) {
+      this.$emit('delete-todo', id);
     },
   },
 };

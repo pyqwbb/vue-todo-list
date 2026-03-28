@@ -1,7 +1,11 @@
 <template>
   <div class="todo">
     <TodoHeader :currentTab @update-tab="updateTabHandler" />
-    <TodoList :computedTodo="computedTodo" @update-todo="updateTodoHandler" />
+    <TodoList
+      :computedTodo="computedTodo"
+      @update-todo="updateTodoHandler"
+      @delete-todo="deleteTodoHandler"
+    />
     <TodoInput @add-todo="addTodoHandler" />
   </div>
 </template>
@@ -32,6 +36,9 @@ export default {
       this.todo = this.todo.map((v) =>
         v.id === id ? { ...v, completed: !v.completed } : v,
       );
+    },
+    deleteTodoHandler(id) {
+      this.todo = this.todo.filter((v) => v.id !== id);
     },
     updateTabHandler(tab) {
       this.currentTab = tab;
