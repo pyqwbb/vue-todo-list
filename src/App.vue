@@ -1,7 +1,7 @@
 <template>
   <div class="todo">
     <TodoHeader :currentTab @update-tab="updateTabHandler" />
-    <TodoList />
+    <TodoList :computedTodo="computedTodo" @update-todo="updateTodoHandler" />
     <TodoInput @add-todo="addTodoHandler" />
   </div>
 </template>
@@ -27,7 +27,11 @@ export default {
         completed: false,
       };
       this.todo.push(item);
-      console.log('완료');
+    },
+    updateTodoHandler(id) {
+      this.todo = this.todo.map((v) =>
+        v.id === id ? { ...v, completed: !v.completed } : v,
+      );
     },
     updateTabHandler(tab) {
       this.currentTab = tab;
