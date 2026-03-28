@@ -18,9 +18,10 @@ export default {
       inputMsg: '',
     };
   },
+  emits: ['add-todo'],
   methods: {
     addTodo() {
-      console.log(this.inputMsg);
+      this.$emit('add-todo', this.inputMsg);
       this.inputMsg = '';
     },
   },

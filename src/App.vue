@@ -2,7 +2,7 @@
   <div class="todo">
     <TodoHeader />
     <TodoList />
-    <TodoInput />
+    <TodoInput @add-todo="addTodoHandler" />
   </div>
 </template>
 
@@ -13,5 +13,21 @@ import TodoInput from './components/TodoInput.vue';
 
 export default {
   components: { TodoHeader, TodoList, TodoInput },
+  data() {
+    return {
+      todo: [],
+    };
+  },
+  methods: {
+    addTodoHandler(inputMsg) {
+      const item = {
+        id: Math.random(),
+        msg: inputMsg,
+        completed: false,
+      };
+      this.todo.push(item);
+      console.log('완료');
+    },
+  },
 };
 </script>
