@@ -1,6 +1,6 @@
 <template>
   <div class="todo">
-    <TodoHeader />
+    <TodoHeader :currentTab @update-tab="updateTabHandler" />
     <TodoList />
     <TodoInput @add-todo="addTodoHandler" />
   </div>
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       todo: [],
+      currentTab: 'all',
     };
   },
   methods: {
@@ -27,6 +28,18 @@ export default {
       };
       this.todo.push(item);
       console.log('완료');
+    },
+    updateTabHandler(tab) {
+      this.currentTab = tab;
+    },
+  },
+  computed: {
+    computedTodo() {
+      if (this.currentTab === 'all') {
+        return this.todo;
+      } else {
+        return this.todo.filter((v) => v.completed);
+      }
     },
   },
 };
