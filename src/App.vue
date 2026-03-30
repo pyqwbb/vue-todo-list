@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import TodoHeader from './components/TodoHeader.vue';
 import TodoList from './components/TodoList.vue';
 import TodoInput from './components/TodoInput.vue';
@@ -51,46 +51,39 @@ export default {
       currentTab.value = tab;
     };
 
+    const computedTodo = computed(() => {
+      if (currentTab.value === 'all') {
+        return todo.value;
+      } else {
+        return todo.value.filter((v) => v.completed);
+      }
+    });
+
+    watch(
+      todo,
+      (newTodo) => {
+        localStorage.setItem('todo', JSON.stringify(newTodo));
+      },
+      { deep: true },
+    );
+
+    onMounted(() => {
+      const saved = localStorage.getItem('todo');
+      if (saved) {
+        todo.value = JSON.parse(saved);
+      }
+    });
+
     return {
       todo,
       currentTab,
+      computedTodo,
       addTodoHandler,
       updateTodoHandler,
       deleteTodoHandler,
       editTodoHandler,
       updateTabHandler,
     };
-  },
-  // 컴포넌트가 생성될 때 실행되는 라이프사이클 훅 (초기 데이터 세팅에 사용)
-  created() {
-    // localStorage에 'todo'라는 key로 저장된 값을 가져옴 (문자열 형태)
-    const saved = localStorage.getItem('todo');
-    // 저장된 값이 존재할 경우에만 실행 (null 방지)
-    if (saved) {
-      // 문자열(JSON)을 자바스크립트 객체(배열)로 변환해서 todo에 넣어줌
-      this.todo = JSON.parse(saved);
-    }
-  },
-  // 특정 데이터(todo)가 변경되는 것을 감지해서 자동으로 실행되는 영역
-  watch: {
-    todo: {
-      // todo 데이터가 변경될 때마다 실행되는 함수
-      handler(newTodo) {
-        // 변경된 todo 데이터를 문자열(JSON)로 변환해서 localStorage에 저장
-        localStorage.setItem('todo', JSON.stringify(newTodo));
-      },
-      // 배열이나 객체 내부 값까지 감지하기 위한 deep 옵션
-      deep: true,
-    },
-  },
-  computed: {
-    computedTodo() {
-      if (this.currentTab === 'all') {
-        return this.todo;
-      } else {
-        return this.todo.filter((v) => v.completed);
-      }
-    },
   },
 };
 </script>
