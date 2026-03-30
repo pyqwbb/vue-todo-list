@@ -24,9 +24,41 @@ export default {
     const todo = ref([]);
     const currentTab = ref('all');
 
+    const addTodoHandler = (inputMsg) => {
+      const item = {
+        id: Math.random(),
+        msg: inputMsg,
+        completed: false,
+      };
+      todo.value.push(item);
+    };
+
+    const updateTodoHandler = (id) => {
+      todo.value = todo.value.map((v) =>
+        v.id === id ? { ...v, completed: !v.completed } : v,
+      );
+    };
+
+    const deleteTodoHandler = (id) => {
+      todo.value = todo.value.filter((v) => v.id !== id);
+    };
+
+    const editTodoHandler = ({ id, msg }) => {
+      todo.value = todo.value.map((v) => (v.id === id ? { ...v, msg } : v));
+    };
+
+    const updateTabHandler = (tab) => {
+      currentTab.value = tab;
+    };
+
     return {
       todo,
       currentTab,
+      addTodoHandler,
+      updateTodoHandler,
+      deleteTodoHandler,
+      editTodoHandler,
+      updateTabHandler,
     };
   },
   // 컴포넌트가 생성될 때 실행되는 라이프사이클 훅 (초기 데이터 세팅에 사용)
@@ -49,30 +81,6 @@ export default {
       },
       // 배열이나 객체 내부 값까지 감지하기 위한 deep 옵션
       deep: true,
-    },
-  },
-  methods: {
-    addTodoHandler(inputMsg) {
-      const item = {
-        id: Math.random(),
-        msg: inputMsg,
-        completed: false,
-      };
-      this.todo.push(item);
-    },
-    updateTodoHandler(id) {
-      this.todo = this.todo.map((v) =>
-        v.id === id ? { ...v, completed: !v.completed } : v,
-      );
-    },
-    deleteTodoHandler(id) {
-      this.todo = this.todo.filter((v) => v.id !== id);
-    },
-    editTodoHandler({ id, msg }) {
-      this.todo = this.todo.map((v) => (v.id === id ? { ...v, msg } : v));
-    },
-    updateTabHandler(tab) {
-      this.currentTab = tab;
     },
   },
   computed: {
