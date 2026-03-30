@@ -12,16 +12,21 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import TodoHeader from './components/TodoHeader.vue';
 import TodoList from './components/TodoList.vue';
 import TodoInput from './components/TodoInput.vue';
 
 export default {
   components: { TodoHeader, TodoList, TodoInput },
-  data() {
+
+  setup() {
+    const todo = ref([]);
+    const currentTab = ref('all');
+
     return {
-      todo: [],
-      currentTab: 'all',
+      todo,
+      currentTab,
     };
   },
   // 컴포넌트가 생성될 때 실행되는 라이프사이클 훅 (초기 데이터 세팅에 사용)
