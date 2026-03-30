@@ -5,6 +5,7 @@
       :computedTodo="computedTodo"
       @update-todo="updateTodoHandler"
       @delete-todo="deleteTodoHandler"
+      @edit-todo="editTodoHandler"
     />
     <TodoInput @add-todo="addTodoHandler" />
   </div>
@@ -39,6 +40,9 @@ export default {
     },
     deleteTodoHandler(id) {
       this.todo = this.todo.filter((v) => v.id !== id);
+    },
+    editTodoHandler({ id, msg }) {
+      this.todo = this.todo.map((v) => (v.id === id ? { ...v, msg } : v));
     },
     updateTabHandler(tab) {
       this.currentTab = tab;

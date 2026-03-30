@@ -14,7 +14,22 @@
         @click="updateTodo(item.id)"
       />
       <label :for="item.id" class="todo__checkbox-label"></label>
-      <span class="todo__item-text">{{ item.msg }}</span>
+      <span v-if="editingId !== item.id" class="todo__item-text">
+        {{ item.msg }}
+      </span>
+      <input
+        v-else
+        v-model="editingMsg"
+        type="text"
+        @keydown.enter="saveEdit(item.id)"
+        autofocus
+      />
+      <span
+        class="material-symbols-outlined todo__edit-icon"
+        @click="editTodo(item)"
+      >
+        edit
+      </span>
       <span
         class="material-symbols-outlined todo__delete-icon"
         @click="deleteTodo(item.id)"
@@ -31,6 +46,12 @@
 
 <script>
 export default {
+  data() {
+    return {
+      editingId: null,
+      editingMsg: '',
+    };
+  },
   props: {
     computedTodo: {
       type: Array,
@@ -39,13 +60,22 @@ export default {
       },
     },
   },
-  emits: ['update-todo', 'delete-todo'],
+  emits: ['update-todo', 'delete-todo', 'edit-todo'],
   methods: {
     updateTodo(id) {
       this.$emit('update-todo', id);
     },
     deleteTodo(id) {
       this.$emit('delete-todo', id);
+    },
+    editTodo(item) {
+      this.editingId = item.id;
+      this.editingMsg = item.msg;
+    },
+    saveEdit(id) {
+      this.$emit('edit-todo', { id, msg: this.editingMsg });
+      this.editingId = null;
+      this.editingMsg = '';
     },
   },
 };

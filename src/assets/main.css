@@ -106,8 +106,10 @@ body {
   top: 0;
 }
 
-.todo__delete-icon {
+.todo__delete-icon,
+.todo__edit-icon {
   flex-shrink: 0;
+  padding-right: 10px;
 }
 
 .todo__item--completed {
