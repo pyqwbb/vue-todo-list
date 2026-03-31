@@ -19,7 +19,10 @@ const inputMsg = ref('');
 const emit = defineEmits(['add-todo']);
 
 const addTodo = () => {
-  emit('add-todo', inputMsg.value);
+  const trimmedMsg = inputMsg.value.trim();
+  if (!trimmedMsg) return;
+
+  emit('add-todo', trimmedMsg);
   inputMsg.value = '';
 };
 </script>
