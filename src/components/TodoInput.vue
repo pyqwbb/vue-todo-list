@@ -11,19 +11,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      inputMsg: '',
-    };
-  },
-  emits: ['add-todo'],
-  methods: {
-    addTodo() {
-      this.$emit('add-todo', this.inputMsg);
-      this.inputMsg = '';
-    },
-  },
+<script setup>
+import { ref } from 'vue';
+
+const inputMsg = ref('');
+
+const emit = defineEmits(['add-todo']);
+
+const addTodo = () => {
+  emit('add-todo', inputMsg.value);
+  inputMsg.value = '';
 };
 </script>
