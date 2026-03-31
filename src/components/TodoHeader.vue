@@ -1,6 +1,6 @@
 <template>
   <div class="todo__title">
-    <h1 class="todo__text">Todo List</h1>
+    <h1 class="todo__text lilita-one-regular">To Do List</h1>
     <div class="todo__tab">
       <p
         :class="{ 'todo__tab--active': currentTab === 'all' }"

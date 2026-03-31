@@ -17,7 +17,7 @@ body {
   width: 350px;
   background-color: rgb(250, 240, 240);
   border: 1px solid #ececec;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 20px 0;
 }
 
@@ -39,7 +39,7 @@ body {
     text-align: center;
     background-color: #ffffff;
     padding: 4px;
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 13px;
     border: 1px solid #a5a5a5;
   }
@@ -51,8 +51,14 @@ body {
 }
 
 .todo__text {
-  font-family: 'Gabarito', sans-serif;
-  font-size: 20px;
+  font-size: 25px;
+  color: palevioletred;
+}
+
+.lilita-one-regular {
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .todo__list {
@@ -71,7 +77,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin: 16px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease;
@@ -127,6 +133,7 @@ body {
 .todo__edit-icon {
   flex-shrink: 0;
   padding-left: 10px;
+  color: palevioletred;
 }
 
 .todo__item--completed {
@@ -146,15 +153,15 @@ body {
 .todo__input-text {
   flex-grow: 1;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 5px;
-  padding: 0 10px;
+  border-radius: 20px;
+  margin-right: 8px;
+  padding: 0 20px;
 }
 
 .todo__input-btn {
   flex-shrink: 0;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   background-color: palevioletred;
   font-size: 13px;
   color: white;
