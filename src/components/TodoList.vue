@@ -44,39 +44,37 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      editingId: null,
-      editingMsg: '',
-    };
+<script setup>
+import { ref } from 'vue';
+
+const editingId = ref(null);
+const editingMsg = ref('');
+
+const props = defineProps({
+  computedTodo: {
+    type: Array,
+    default: () => [],
   },
-  props: {
-    computedTodo: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-  },
-  emits: ['update-todo', 'delete-todo', 'edit-todo'],
-  methods: {
-    updateTodo(id) {
-      this.$emit('update-todo', id);
-    },
-    deleteTodo(id) {
-      this.$emit('delete-todo', id);
-    },
-    editTodo(item) {
-      this.editingId = item.id;
-      this.editingMsg = item.msg;
-    },
-    saveEdit(id) {
-      this.$emit('edit-todo', { id, msg: this.editingMsg });
-      this.editingId = null;
-      this.editingMsg = '';
-    },
-  },
+});
+
+const emit = defineEmits(['update-todo', 'delete-todo', 'edit-todo']);
+
+const updateTodo = (id) => {
+  emit('update-todo', id);
+};
+
+const deleteTodo = (id) => {
+  emit('delete-todo', id);
+};
+
+const editTodo = (item) => {
+  editingId.value = item.id;
+  editingMsg.value = item.msg;
+};
+
+const saveEdit = (id) => {
+  emit('edit-todo', { id, msg: editingMsg.value });
+  editingId.value = null;
+  editingMsg.value = '';
 };
 </script>
