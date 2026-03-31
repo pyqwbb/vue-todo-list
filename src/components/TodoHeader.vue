@@ -18,21 +18,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    currentTab: {
-      type: String,
-      default() {
-        return 'all';
-      },
-    },
+<script setup>
+const props = defineProps({
+  currentTab: {
+    type: String,
+    default: 'all',
   },
-  emits: ['update-tab'],
-  methods: {
-    updateTab(currentTab) {
-      this.$emit('update-tab', currentTab);
-    },
-  },
+});
+
+const emit = defineEmits(['update-tab']);
+
+const updateTab = (tab) => {
+  emit('update-tab', tab);
 };
 </script>
