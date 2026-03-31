@@ -10,13 +10,12 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f3f0ff;
   background-color: white;
 }
 
 .todo {
   width: 350px;
-  background-color: #f4fafd;
+  background-color: rgb(250, 240, 240);
   border: 1px solid #ececec;
   border-radius: 16px;
   padding: 20px 0;
@@ -29,16 +28,25 @@ body {
 
 .todo__tab {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 16px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
+  flex-wrap: wrap;
+  color: #555;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 25px 20px 10px 20px;
+
+  p {
+    width: 30%;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 4px;
+    border-radius: 8px;
+    font-size: 13px;
+    border: 1px solid #a5a5a5;
+  }
 }
 
 .todo__tab--active {
-  color: blue;
+  color: palevioletred;
   font-weight: bold;
 }
 
@@ -147,7 +155,7 @@ body {
   flex-shrink: 0;
   border: none;
   border-radius: 8px;
-  background-color: blue;
+  background-color: palevioletred;
   font-size: 13px;
   color: white;
   padding: 8px 12px;

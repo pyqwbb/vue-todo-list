@@ -1,6 +1,11 @@
 <template>
   <div class="todo">
-    <TodoHeader :currentTab @update-tab="updateTabHandler" />
+    <TodoHeader
+      :currentTab
+      :completedCount="completedCount"
+      :remainingCount="remainingCount"
+      @update-tab="updateTabHandler"
+    />
     <TodoList
       :computedTodo="computedTodo"
       @update-todo="updateTodoHandler"
@@ -50,9 +55,19 @@ const updateTabHandler = (tab) => {
 const computedTodo = computed(() => {
   if (currentTab.value === 'all') {
     return todo.value;
+  } else if (currentTab.value === 'remaining') {
+    return todo.value.filter((v) => !v.completed);
   } else {
     return todo.value.filter((v) => v.completed);
   }
+});
+
+const completedCount = computed(() => {
+  return todo.value.filter((v) => v.completed).length;
+});
+
+const remainingCount = computed(() => {
+  return todo.value.filter((v) => !v.completed).length;
 });
 
 watch(

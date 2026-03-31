@@ -1,20 +1,26 @@
 <template>
   <div class="todo__title">
     <h1 class="todo__text">Todo List</h1>
-    <ul class="todo__tab">
-      <li
+    <div class="todo__tab">
+      <p
         :class="{ 'todo__tab--active': currentTab === 'all' }"
         @click="updateTab('all')"
       >
-        전체
-      </li>
-      <li
+        전체 {{ completedCount + remainingCount }}개
+      </p>
+      <p
+        :class="{ 'todo__tab--active': currentTab === 'remaining' }"
+        @click="updateTab('remaining')"
+      >
+        남은 일 {{ remainingCount }} 개
+      </p>
+      <p
         :class="{ 'todo__tab--active': currentTab === 'completed' }"
         @click="updateTab('completed')"
       >
-        완료
-      </li>
-    </ul>
+        완료 {{ completedCount }}개
+      </p>
+    </div>
   </div>
 </template>
 
@@ -23,6 +29,12 @@ const props = defineProps({
   currentTab: {
     type: String,
     default: 'all',
+  },
+  completedCount: {
+    type: Number,
+  },
+  remainingCount: {
+    type: Number,
   },
 });
 
